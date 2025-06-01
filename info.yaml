@@ -1,22 +1,21 @@
-# Tiny Tapeout project information
 yaml_version: 6
 
 project:
   title:        "ALU 8 BITS"
-  author:       "FRANCISCO"
+  author:       "BYRON"
   discord:      ""
-  description:  "ALU DE 8 BITS 6 FUNCIONES"
+  description:  "ALU DE 8 BITS 4 FUNCIONES"
   language:     "Verilog"
   clock_hz:     0
   tiles: "1x1"
-  top_module:  "tt_um_FrancMendez"
+  top_module:  "tt_um_byron"
   source_files:
-    - "tt_um_FrancMendez.v"
+    - "tt_um_byron.v"
     - "alu_8bit.v"
     - "carry_lookahead_adder_8bit.v"
 
 pinout:
-  ui[0]: "[7:0] sw"
+  ui[0]: "[7:0]sw"
   ui[1]: "btn0"
   ui[2]: "btn1"
   ui[3]: "clk"
@@ -25,7 +24,7 @@ pinout:
   ui[6]: ""
   ui[7]: ""
   
-  uo[0]: "[7:0] led"
+  uo[0]: "[7:0]led"
   uo[1]: ""
   uo[2]: ""
   uo[3]: ""
