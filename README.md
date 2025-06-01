@@ -1,41 +1,83 @@
-![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg) ![](../../workflows/test/badge.svg) ![](../../workflows/fpga/badge.svg)
+![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg) ![](../../workflows/test/badge.svg)
 
-# Tiny Tapeout Verilog Project Template
+# 🧠 Tiny Tapeout - ALU de 8 bits con Carry Look-Ahead
 
-- [Read the documentation for project](docs/info.md)
+Este proyecto implementa una **Unidad Aritmético Lógica (ALU)** de 8 bits que utiliza un **sumador tipo carry look-ahead**, permitiendo realizar operaciones básicas como suma, resta, AND y OR. El diseño ha sido desarrollado para ser fabricado mediante el flujo de diseño de [Tiny Tapeout](https://tinytapeout.com).
 
-## What is Tiny Tapeout?
+## ✅ Funcionalidad
 
-Tiny Tapeout is an educational project that aims to make it easier and cheaper than ever to get your digital and analog designs manufactured on a real chip.
+| `sel` (3 bits) | Operación       |
+|----------------|------------------|
+| 000            | A + B (suma)     |
+| 001            | A - B (resta)    |
+| 010            | A & B (AND)      |
+| 011            | A | B (OR)       |
+| otro           | Resultado = 0    |
 
-To learn more and get started, visit https://tinytapeout.com.
+- Entradas: `io_in[7:0]`  
+  - `A[3:0] = io_in[7:4]`  
+  - `B[3:0] = io_in[3:0]`  
+  - `sel[2:0] = io_in[2:0]`  
+- Salida: `io_out[7:0] = resultado de la operación`
 
-## Set up your Verilog project
+> Internamente se extienden los operandos a 8 bits (relleno con ceros a la izquierda).
 
-1. Add your Verilog files to the `src` folder.
-2. Edit the [info.yaml](info.yaml) and update information about your project, paying special attention to the `source_files` and `top_module` properties. If you are upgrading an existing Tiny Tapeout project, check out our [online info.yaml migration tool](https://tinytapeout.github.io/tt-yaml-upgrade-tool/).
-3. Edit [docs/info.md](docs/info.md) and add a description of your project.
-4. Adapt the testbench to your design. See [test/README.md](test/README.md) for more information.
+## 📁 Estructura del Proyecto
 
-The GitHub action will automatically build the ASIC files using [OpenLane](https://www.zerotoasiccourse.com/terminology/openlane/).
+```
+.
+├── info.yaml
+├── visual.json
+├── user_module.v
+├── user_project_wrapper.v
+├── src/
+│   ├── alu_8bit.v
+│   ├── carry_lookahead_adder_8bit.v
+│   └── user_module.v
+├── test/
+│   └── user_module_tb.v
+├── docs/
+│   └── README.md
+```
 
-## Enable GitHub actions to build the results page
+## 🚀 ¿Qué es Tiny Tapeout?
 
-- [Enabling GitHub Pages](https://tinytapeout.com/faq/#my-github-action-is-failing-on-the-pages-part)
+Tiny Tapeout es un proyecto educativo que permite a estudiantes, entusiastas y desarrolladores crear chips ASIC reales de forma accesible. Aprende más en [tinytapeout.com](https://tinytapeout.com).
 
-## Resources
+## 🧪 Simulación local del diseño
 
-- [FAQ](https://tinytapeout.com/faq/)
-- [Digital design lessons](https://tinytapeout.com/digital_design/)
-- [Learn how semiconductors work](https://tinytapeout.com/siliwiz/)
-- [Join the community](https://tinytapeout.com/discord)
-- [Build your design locally](https://www.tinytapeout.com/guides/local-hardening/)
+1. Instala [OpenLane 2 con nix](https://openlane2.readthedocs.io/en/latest/getting_started/nix_installation/index.html).
+2. Clona `tt-support-tools`:
+   ```bash
+   git clone -b tt06 https://github.com/TinyTapeout/tt-support-tools tt
+   ```
+3. Ejecuta:
+   ```bash
+   rm -rf runs && nix-shell ${OPENLANE2_ROOT}/shell.nix --run "python build.py"
+   ```
 
-## What next?
+Para simulación directa puedes usar:
+```bash
+make sim
+```
 
-- [Submit your design to the next shuttle](https://app.tinytapeout.com/).
-- Edit [this README](README.md) and explain your design, how it works, and how to test it.
-- Share your project on your social network of choice:
-  - LinkedIn [#tinytapeout](https://www.linkedin.com/search/results/content/?keywords=%23tinytapeout) [@TinyTapeout](https://www.linkedin.com/company/100708654/)
-  - Mastodon [#tinytapeout](https://chaos.social/tags/tinytapeout) [@matthewvenn](https://chaos.social/@matthewvenn)
-  - X (formerly Twitter) [#tinytapeout](https://twitter.com/hashtag/tinytapeout) [@tinytapeout](https://twitter.com/tinytapeout)
+## 📚 Recursos útiles
+
+- [FAQ de Tiny Tapeout](https://tinytapeout.com/faq/)
+- [Lecciones de diseño digital](https://tinytapeout.com/digital_design/)
+- [Siliwiz: Aprende cómo funcionan los semiconductores](https://tinytapeout.com/siliwiz/)
+- [Únete al Discord](https://discord.gg/rPK2nSjxy8)
+
+## ✍ Autor
+
+- Francisco Mendez
+
+## 🛰 ¿Qué sigue?
+
+- Sube tu diseño a la próxima ronda de shuttle en [tinytapeout.com](https://tinytapeout.com/#submit-your-design).
+- Edita este README si realizas mejoras.
+- Comparte tu chip en redes con el hashtag `#tinytapeout`:
+
+  - [LinkedIn](https://www.linkedin.com/search/results/content/?keywords=%23tinytapeout)
+  - [Mastodon](https://chaos.social/tags/tinytapeout)
+  - [Twitter](https://twitter.com/hashtag/tinytapeout?src=hashtag_click)
