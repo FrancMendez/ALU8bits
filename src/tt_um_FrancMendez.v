@@ -1,4 +1,4 @@
-module tt_um_byron (
+module tt_um_FrancMendez (
     input  [7:0] ui_in,
     output [7:0] uo_out,
     input clk,
