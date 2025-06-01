@@ -3,7 +3,7 @@ yaml_version: 6
 
 project:
   title:        "ALU 8 BITS"
-  author:       "Francisco Mendez"
+  author:       "FRANCISCO"
   discord:      ""
   description:  "ALU DE 8 BITS 6 FUNCIONES"
   language:     "Verilog"
